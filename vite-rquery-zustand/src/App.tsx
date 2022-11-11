@@ -1,14 +1,24 @@
 import { useBearStore } from './state/store'
+import { Bear } from './components/bear'
+import { QueryProvider } from './providers'
+import { Characters } from './components/character'
+import { Box } from '@mui/material'
 
 function App() {
   const { bears, increasePopulation, removeAllBears } = useBearStore()
+
   return (
-    <div>
+    <Box sx={{ width: 1, height: 1 }}>
       APP
-      <div>Bear counter: {bears}</div>
-      <button onClick={increasePopulation}>Pridaj medveda</button>
-      <button onClick={removeAllBears}>Rip medvede</button>
-    </div>
+      <Bear
+        bears={bears}
+        increasePopulation={increasePopulation}
+        removeAllBears={removeAllBears}
+      />
+      <QueryProvider>
+        <Characters />
+      </QueryProvider>
+    </Box>
   )
 }
 
