@@ -2,7 +2,7 @@ import { Box, Button, Stack } from '@mui/material'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { useState } from 'react'
-import { Card } from '../card'
+import { CharacterCard } from '../card'
 
 interface CharactersProps {}
 
@@ -27,6 +27,10 @@ export const Characters: React.FC<CharactersProps> = ({}) => {
 
   if (isFetching) {
     return <div>loading...</div>
+  }
+
+  if (error) {
+    return <div>could not fetch data </div>
   }
 
   return (
@@ -57,10 +61,13 @@ export const Characters: React.FC<CharactersProps> = ({}) => {
       >
         {data?.results.length > 0 &&
           data.results.map((character: any) => (
-            <Card
+            <CharacterCard
               key={character.id}
-              title={character.name}
-              url={character.image}
+              name={character.name}
+              imgUrl={character.image}
+              species={character.species}
+              gender={character.gender}
+              status={character.status}
             />
           ))}
       </Stack>

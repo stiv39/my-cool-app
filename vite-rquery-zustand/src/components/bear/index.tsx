@@ -12,8 +12,8 @@ export const Bear: React.FC<BearProps> = ({
   return (
     <>
       <div>Bear counter: {bears}</div>
-      <button onClick={increasePopulation}>Pridaj medveda</button>
-      <button onClick={removeAllBears}>Rip medvede</button>
+      <button onClick={increasePopulation}>Add bear</button>
+      <button onClick={removeAllBears}>Rip bears</button>
     </>
   )
 }

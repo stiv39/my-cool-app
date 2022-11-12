@@ -1,45 +1,35 @@
-import { Box, Typography } from '@mui/material'
+import { Typography, Card, CardContent, CardMedia } from '@mui/material'
 
-export interface CardProps {
-  title: string
-  url: string
+export interface CharacterCardProps {
+  name: string
+  imgUrl: string
+  status: string
+  species: string
+  gender: string
 }
 
-export const Card: React.FC<CardProps> = ({ title, url }) => {
+export const CharacterCard: React.FC<CharacterCardProps> = ({
+  name,
+  imgUrl,
+  status,
+  species,
+  gender,
+}) => {
   return (
-    <Box
-      sx={{
-        background: 'rgb(59, 62, 67)',
-        borderRadius: '0.5rem',
-        overflow: 'hidden',
-        marginBottom: '1rem',
-        marginRight: '1rem',
-        display: 'flex',
-        maxWidth: '30rem',
-      }}
-    >
-      <img src={url} style={{ width: '15rem', height: '100%' }} />
-      <Box sx={{ padding: '1rem' }}>
-        <Typography
-          variant="h4"
-          color="white"
-          sx={{ fontSize: '2rem', overflow: 'clip' }}
-        >
-          {title}
+    <Card sx={{ maxWidth: 300, margin: '10px' }}>
+      <CardMedia component="img" image={imgUrl} alt={name} />
+      <CardContent>
+        <Typography variant="h5" component="div" sx={{ flexWrap: 'wrap' }}>
+          {name}
         </Typography>
-      </Box>
-    </Box>
+        <Typography variant="body2" color="text.secondary">
+          <ul>
+            <li>Status: {status}</li>
+            <li>Species: {species}</li>
+            <li>Gender: {gender}</li>
+          </ul>
+        </Typography>
+      </CardContent>
+    </Card>
   )
 }
-
-/* <div className="card">
-<img src={character.image} alt="" />
-<div className="text-container">
-  <h3>{character.name}</h3>
-  <p className="status">
-    {character.status} - {character.species}
-  </p>
-  <p className="title">Last seen on</p>
-  <p>{character.location.name}</p>
-</div>
-</div> */

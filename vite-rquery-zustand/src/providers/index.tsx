@@ -4,7 +4,13 @@ interface QueryProviderProps {
   children: React.ReactNode
 }
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+})
 
 export const QueryProvider: React.FC<QueryProviderProps> = ({ children }) => {
   return (
