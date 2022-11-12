@@ -1,17 +1,20 @@
-import { useBearStore } from './state/store'
+import { useBearStore, usePostStore } from './state'
 import { Bear } from './components/bear'
 import { QueryProvider } from './providers'
 import { Characters } from './components/character'
 import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
+import { PostComponent } from './components/post'
 
 function App() {
   const { bears, increasePopulation, removeAllBears } = useBearStore()
+  const { posts, getPosts, getPostById, removePosts } = usePostStore()
 
   const [selectedView, setSelectedView] = React.useState<string>('')
 
   const handleSelectBearView = () => setSelectedView('bear')
   const handleSelectRickMortyView = () => setSelectedView('morty')
+  const handleSelectPostsView = () => setSelectedView('posts')
 
   return (
     <Box sx={{ width: 1, height: 1 }}>
@@ -24,6 +27,9 @@ function App() {
         </Button>
         <Button variant={'contained'} onClick={handleSelectRickMortyView}>
           Rick & Morty with React Query
+        </Button>
+        <Button variant={'contained'} onClick={handleSelectPostsView}>
+          Posts with zustand
         </Button>
       </Box>
       <Box sx={{ marginTop: '50px' }}>
@@ -39,6 +45,13 @@ function App() {
           <QueryProvider>
             <Characters />
           </QueryProvider>
+        ) : selectedView === 'posts' ? (
+          <PostComponent
+            posts={posts}
+            getPosts={getPosts}
+            getPostById={getPostById}
+            removePosts={removePosts}
+          />
         ) : null}
       </Box>
     </Box>
