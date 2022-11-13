@@ -16,6 +16,7 @@ export const PostComponent: React.FC<PostComponentProps> = ({
   removePosts,
 }) => {
   const [value, setValue] = React.useState<string>('')
+
   return (
     <div>
       <TextField
@@ -26,7 +27,11 @@ export const PostComponent: React.FC<PostComponentProps> = ({
       <Button variant={'contained'} onClick={getPosts}>
         Get posts
       </Button>
-      <Button variant={'contained'} onClick={() => getPostById(value)}>
+      <Button
+        variant={'contained'}
+        disabled={isNaN(parseInt(value))}
+        onClick={() => getPostById(value)}
+      >
         Get post by id
       </Button>
       <Button variant={'contained'} onClick={removePosts}>

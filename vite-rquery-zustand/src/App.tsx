@@ -5,6 +5,7 @@ import { Characters } from './components/character'
 import { Box, Button, Typography } from '@mui/material'
 import React from 'react'
 import { PostComponent } from './components/post'
+import { Hogwarts } from './components/hogwarts'
 
 function App() {
   const { bears, increasePopulation, removeAllBears } = useBearStore()
@@ -15,6 +16,49 @@ function App() {
   const handleSelectBearView = () => setSelectedView('bear')
   const handleSelectRickMortyView = () => setSelectedView('morty')
   const handleSelectPostsView = () => setSelectedView('posts')
+  const handleSelectHPView = () => setSelectedView('hogwarts')
+
+  const getMarkUp = (key: string) => {
+    switch (key) {
+      case 'bear': {
+        return (
+          <Box sx={{ width: 1, textAlign: 'center' }}>
+            <Bear
+              bears={bears}
+              increasePopulation={increasePopulation}
+              removeAllBears={removeAllBears}
+            />
+          </Box>
+        )
+      }
+      case 'morty': {
+        return (
+          <QueryProvider>
+            <Characters />
+          </QueryProvider>
+        )
+      }
+      case 'posts': {
+        return (
+          <PostComponent
+            posts={posts}
+            getPosts={getPosts}
+            getPostById={getPostById}
+            removePosts={removePosts}
+          />
+        )
+      }
+      case 'hogwarts': {
+        return (
+          <QueryProvider>
+            <Hogwarts />
+          </QueryProvider>
+        )
+      }
+      default:
+        return <></>
+    }
+  }
 
   return (
     <Box sx={{ width: 1, height: 1 }}>
@@ -31,29 +75,12 @@ function App() {
         <Button variant={'contained'} onClick={handleSelectPostsView}>
           Posts with zustand
         </Button>
+        <Button variant={'contained'} onClick={handleSelectHPView}>
+          Explore Hogwarts
+        </Button>
       </Box>
-      <Box sx={{ marginTop: '50px' }}>
-        {selectedView === 'bear' ? (
-          <Box sx={{ width: 1, textAlign: 'center' }}>
-            <Bear
-              bears={bears}
-              increasePopulation={increasePopulation}
-              removeAllBears={removeAllBears}
-            />
-          </Box>
-        ) : selectedView === 'morty' ? (
-          <QueryProvider>
-            <Characters />
-          </QueryProvider>
-        ) : selectedView === 'posts' ? (
-          <PostComponent
-            posts={posts}
-            getPosts={getPosts}
-            getPostById={getPostById}
-            removePosts={removePosts}
-          />
-        ) : null}
-      </Box>
+
+      <Box sx={{ marginTop: '50px' }}>{getMarkUp(selectedView)}</Box>
     </Box>
   )
 }
